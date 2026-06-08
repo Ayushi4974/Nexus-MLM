@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) {
+    return;
+  }
   try {
     // Set low timeout (3 seconds) to check local/env MongoDB availability quickly
     const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/mlm_system', {
